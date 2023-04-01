@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{2753D59E-7DF1-47D6-A4A5-05AE4B32D0BC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Screenshot", "Screenshot", "{1A662E24-CE31-4BB3-9AAB-9887D1B93A57}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{72E65959-3D47-43C2-A7B4-1F03EDA9BF77}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
