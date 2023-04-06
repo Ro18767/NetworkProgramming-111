@@ -38,6 +38,10 @@ namespace Server
 
         private void StartServer_Click(object sender, RoutedEventArgs e)
         {
+            LaunchServer();
+        }
+        private void LaunchServer()
+        {
             IPEndPoint endpoint;
             try
             {
@@ -111,7 +115,7 @@ namespace Server
                             DateTime lastSyncMoment = request.Moment;
                             responce.Status = "OK";
                             responce.Messages = messages.FindAll((message) => message.Moment > lastSyncMoment);
-                            Dispatcher.Invoke(() => serverLogs.Text += "check" + "\n");
+                            // Dispatcher.Invoke(() => serverLogs.Text += "check" + "\n");
                             break;
 
                         default:
@@ -148,6 +152,10 @@ namespace Server
             listenSocket?.Close();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LaunchServer();
+        }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             listenSocket?.Close();

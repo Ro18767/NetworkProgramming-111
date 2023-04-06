@@ -32,6 +32,7 @@ namespace Client
             InitializeComponent();
         }
 
+
         byte[] buffer = new byte[1024];
         private Socket? clientSocket;
         IPEndPoint? endpoint;
@@ -77,25 +78,36 @@ namespace Client
         }
         private void CheckButton_Click(object sender, RoutedEventArgs e)
         {
-            GetServerMessages();
+            ReCheckMessages();
         }
-        private void GetServerMessages()
+        private bool checking = false;
+        
+        private bool GetServerMessages()
         {
-            ClientRequest request = new()
+            if (checking) return false;
+            checking = true;
+            try
             {
-                Action = "Get",
-                Autor = autorTextBox.Text,
-                Text = String.Empty,
-                Moment = lastSyncMoment,
+                ClientRequest request = new()
+                {
+                    Action = "Get",
+                    Autor = autorTextBox.Text,
+                    Text = String.Empty,
+                    Moment = lastSyncMoment,
 
-            };
-            ServerResponse? response = SendRequest(request);
-            if (response is null) return;
-            foreach(var message in response.Messages)
+                };
+                ServerResponse? response = SendRequest(request);
+                if (response is null) return false;
+                foreach (var message in response.Messages)
+                {
+                    chatLogs.Text += $"{message.Moment.ToShortTimeString()} {message.Autor}: {message.Text}" + "\n";
+                }
+                lastSyncMoment = response.Messages.LastOrDefault()?.Moment ?? lastSyncMoment;
+            } finally
             {
-                chatLogs.Text += $"{message.Moment.ToShortTimeString()} {message.Autor}: {message.Text}" + "\n";
+                checking = false;
             }
-            lastSyncMoment = response.Messages.LastOrDefault()?.Moment ?? lastSyncMoment;
+            return true;
         }
 
         private ServerResponse? SendRequest(ClientRequest request)
@@ -126,6 +138,7 @@ namespace Client
 
                     var str = Encoding.UTF8.GetString(stream.ToArray());
                     ServerResponse? response = JsonSerializer.Deserialize<ServerResponse>(str);
+                    /*
                     if (response is null)
                     {
                         chatLogs.Text += $"Error: no response" + "\n";
@@ -133,6 +146,7 @@ namespace Client
                     {
                         chatLogs.Text += $"Status:{response.Status}" + "\n";
                     }
+                    */
                         
                     return response;
                 }
@@ -143,6 +157,22 @@ namespace Client
                 chatLogs.Text += "Server Stoped" + ex.Message + "\n";
                 return null;
             }
+        }
+
+        private async void ReCheckMessages()
+        {
+            CheckButton.IsEnabled = false;
+            while (GetServerMessages())
+            {
+                await Task.Delay(1000);
+            }
+
+            CheckButton.IsEnabled = true;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            ReCheckMessages();
         }
     }
 }

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="Client" Width="400" Height="450">
+        Title="Client" Width="400" Height="450"
+        Loaded="Window_Loaded">
     <StackPanel Orientation="Vertical" >
         <StackPanel Orientation="Horizontal">
             <Label Content="Server: IP:"/>
@@ -19,7 +20,7 @@
             <Label Content="Message:"/>
             <TextBox x:Name="messageTextBox" Text="Hello!" Width="100"/>
             <Button Content="Send" x:Name="SendButton" Click="SendButton_Click"/>
-            <Button Content="Check" x:Name="CheckButton" Click="CheckButton_Click"/>
+            <Button Content="Connect" x:Name="CheckButton" Click="CheckButton_Click"/>
         </StackPanel>
         <TextBlock x:Name="chatLogs" Text="Chat Logs:&#10;" TextWrapping="Wrap"/>
 </StackPanel>
