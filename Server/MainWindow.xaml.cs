@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Security.Cryptography.Pkcs;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,6 +30,7 @@ namespace Server
     public partial class MainWindow : Window
     {
         private Socket? listenSocket;
+        private List<ChatMessage> messages = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -70,6 +74,8 @@ namespace Server
                     serverSatus.Content = "ON";
                     serverSatus.Foreground = new SolidColorBrush(new Color { A = 0xFF, G = 0xFF});
                 });
+
+                
                 while (true)
                 {
                     Socket socket = listenSocket.Accept();
@@ -82,9 +88,42 @@ namespace Server
 
 
                     var str = sb.ToString();
-                    Dispatcher.Invoke(() => serverLogs.Text += str + "\n");
 
-                    str = "Recived at " + DateTime.Now;
+                    ClientRequest request = JsonSerializer.Deserialize<ClientRequest>(str);
+
+                    ServerResponse responce = new();
+                    switch(request?.Action)
+                    {
+                        case "Message":
+                            ChatMessage message = new()
+                            {
+                                Text = request.Text,
+                                Moment = DateTime.Now, // тут
+                                Autor = request.Autor,
+                            };
+                            messages.Add(message);
+                            responce.Status = "OK";
+                            responce.Messages = new();
+                            Dispatcher.Invoke(() => serverLogs.Text += 
+                            $"{message.Moment.ToShortTimeString()} {message.Autor}: {message.Text}" + "\n");
+                            break;
+                        case "Get":
+                            DateTime lastSyncMoment = request.Moment;
+                            responce.Status = "OK";
+                            responce.Messages = messages.FindAll((message) => message.Moment > lastSyncMoment);
+                            Dispatcher.Invoke(() => serverLogs.Text += "check" + "\n");
+                            break;
+
+                        default:
+                            responce.Status = "Error";
+                            Dispatcher.Invoke(() => serverLogs.Text += "Error" + "\n");
+                            break;
+
+                    }
+                    // Dispatcher.Invoke(() => serverLogs.Text += str + "\n");
+                    //str = "Recived at " + DateTime.Now;
+                    str = JsonSerializer.Serialize(responce, new JsonSerializerOptions() { Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
+                    
                     socket.Send(Encoding.UTF8.GetBytes(str));
 
                     socket.Shutdown(SocketShutdown.Both);

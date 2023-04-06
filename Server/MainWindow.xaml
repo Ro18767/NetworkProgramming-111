@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:Server"
         Closing="Window_Closing"
         mc:Ignorable="d"
-        Title="Server" SizeToContent="WidthAndHeight">
-    <StackPanel Orientation="Vertical" Width="400" Height="450">
+        Title="Server" Width="400" Height="450">
+    <StackPanel Orientation="Vertical" >
         <StackPanel Orientation="Horizontal" >
             <Label Content="IP:" ></Label>
-            <TextBox x:Name="serverIp" Text="127.0.0.1"></TextBox>
+            <TextBox x:Name="serverIp" Text="127.0.0.1" Width="100"></TextBox>
             <Label Content="Port:" ></Label>
-            <TextBox x:Name="serverPort" Text="8090"></TextBox>
+            <TextBox x:Name="serverPort" Text="8090" Width="100"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" >
@@ -20,6 +20,6 @@
             <Label x:Name="serverSatus" Content="OFF" Foreground="#FFFF0000" ></Label>
             <Button x:Name="StopServer" Content="Stop" Click="StopServer_Click" IsEnabled="False"></Button>
         </StackPanel>
-        <TextBlock x:Name="serverLogs" Text="Server Logs:&#10;" Width="400" TextWrapping="Wrap"></TextBlock>
+        <TextBlock x:Name="serverLogs" Text="Server Logs:&#10;" TextWrapping="Wrap"></TextBlock>
     </StackPanel>
 </Window>

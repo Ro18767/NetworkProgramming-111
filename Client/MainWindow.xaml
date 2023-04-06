@@ -5,18 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Client"
         mc:Ignorable="d"
-        Title="Client" SizeToContent="WidthAndHeight">
-    <StackPanel Orientation="Vertical" Width="400" Height="450">
+        Title="Client" Width="400" Height="450">
+    <StackPanel Orientation="Vertical" >
         <StackPanel Orientation="Horizontal">
             <Label Content="Server: IP:"/>
-            <TextBox x:Name="serverIp" Text="127.0.0.1"/>
+            <TextBox x:Name="serverIp" Text="127.0.0.1" Width="100"/>
             <Label Content="Port:"/>
-            <TextBox x:Name="serverPort" Text="8090"/>
+            <TextBox x:Name="serverPort" Text="8090" Width="100"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Label x:Name="serverStatus" Content="Message:"/>
-            <TextBox x:Name="messageTextBox" Text="Hello!"/>
+            <Label Content="Autor:"/>
+            <TextBox x:Name="autorTextBox" Text="Alex" Width="100"/>
+            <Label Content="Message:"/>
+            <TextBox x:Name="messageTextBox" Text="Hello!" Width="100"/>
             <Button Content="Send" x:Name="SendButton" Click="SendButton_Click"/>
+            <Button Content="Check" x:Name="CheckButton" Click="CheckButton_Click"/>
         </StackPanel>
         <TextBlock x:Name="chatLogs" Text="Chat Logs:&#10;" TextWrapping="Wrap"/>
 </StackPanel>
