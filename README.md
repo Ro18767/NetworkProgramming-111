@@ -2,5 +2,5 @@
 
 
 
-![name](./Server/Screenshot/Screenshot_2.png)
+![name](./Screenshot/Screenshot_2.png)
 
