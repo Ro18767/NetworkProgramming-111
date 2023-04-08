@@ -108,10 +108,15 @@ namespace Client
                 foreach (var message in response.Messages)
                 {
                     // chatLogs.Text += $"{message.Moment.ToShortTimeString()} {message.Autor}: {message.Text}" + "\n";
-
+                    String timeString = message.Moment.ToShortTimeString();
+                    if (message.Moment.Date != DateTime.Now.Date)
+                    {
+                        timeString = $"{message.Moment.ToShortDateString()} {timeString}";
+                    }
+                    
                     TextBlock textBlock = new()
                     {
-                        Text = $"{message.Moment.ToShortTimeString()} {message.Autor}: {message.Text}",
+                        Text = $"{timeString} {message.Autor}: {message.Text}",
                         Background = Brushes.Lime ,
                         Padding = new Thickness(10, 5, 10, 5),
                         HorizontalAlignment = HorizontalAlignment.Right,
