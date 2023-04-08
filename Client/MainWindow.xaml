@@ -22,6 +22,11 @@
             <Button Content="Send" x:Name="SendButton" Click="SendButton_Click"/>
             <Button Content="Connect" x:Name="CheckButton" Click="CheckButton_Click"/>
         </StackPanel>
+        <ScrollViewer HorizontalScrollBarVisibility="Disabled" Height="300" VerticalScrollBarVisibility="Auto" x:Name="scrollElement"  >
+            <StackPanel Orientation="Vertical" x:Name="chatContaner" >
+                
+            </StackPanel>
+        </ScrollViewer>
         <TextBlock x:Name="chatLogs" Text="Chat Logs:&#10;" TextWrapping="Wrap"/>
 </StackPanel>
 </Window>

@@ -66,6 +66,13 @@ namespace Client
         }
         private void SendMessage(ChatMessage message)
         {
+            if(message is null) return;
+            if (message.Text == String.Empty)
+            {
+                MessageBox.Show("Сообщение пустое");
+                return;
+            }
+            
             ClientRequest request = new()
             {
                 Action = "Message",
@@ -100,7 +107,21 @@ namespace Client
                 if (response is null) return false;
                 foreach (var message in response.Messages)
                 {
-                    chatLogs.Text += $"{message.Moment.ToShortTimeString()} {message.Autor}: {message.Text}" + "\n";
+                    // chatLogs.Text += $"{message.Moment.ToShortTimeString()} {message.Autor}: {message.Text}" + "\n";
+
+                    TextBlock textBlock = new()
+                    {
+                        Text = $"{message.Moment.ToShortTimeString()} {message.Autor}: {message.Text}",
+                        Background = Brushes.Lime ,
+                        Padding = new Thickness(10, 5, 10, 5),
+                        HorizontalAlignment = HorizontalAlignment.Right,
+                    };
+                    if (autorTextBox.Text != message.Autor)
+                    {
+                        textBlock.Background = Brushes.Coral;
+                        textBlock.HorizontalAlignment = HorizontalAlignment.Left;
+                    }
+                    chatContaner.Children.Add(textBlock);
                 }
                 lastSyncMoment = response.Messages.LastOrDefault()?.Moment ?? lastSyncMoment;
             } finally
@@ -154,7 +175,16 @@ namespace Client
             }
             catch (Exception ex)
             {
-                chatLogs.Text += "Server Stoped" + ex.Message + "\n";
+                TextBlock textBlock = new()
+                {
+                    Text = $"Server Stoped {ex.Message}",
+                    Background = Brushes.Cyan,
+                    Padding = new Thickness(10, 5, 10, 5),
+                    TextWrapping = TextWrapping.Wrap,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                };
+                chatContaner.Children.Add(textBlock);
+                // chatLogs.Text += "Server Stoped " + ex.Message + "\n";
                 return null;
             }
         }

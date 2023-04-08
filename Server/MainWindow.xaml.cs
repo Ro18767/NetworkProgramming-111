@@ -141,7 +141,7 @@ namespace Server
                 {
                     StartServer.IsEnabled = true;
                     StopServer.IsEnabled = false;
-                    serverLogs.Text += "Server Stoped" + ex.Message + "\n";
+                    serverLogs.Text += "Server Stoped " + ex.Message + "\n";
                     serverSatus.Content = "OFF";
                     serverSatus.Foreground = new SolidColorBrush(new Color { A = 0xFF, R = 0xFF });
                 });

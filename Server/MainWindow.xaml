@@ -11,14 +11,14 @@
         <StackPanel Orientation="Horizontal" >
             <Label Content="IP:" ></Label>
             <TextBox x:Name="serverIp" Text="127.0.0.1" Width="100"></TextBox>
-            <Label Content="Port:" ></Label>
+            <Label Content="Port:" />
             <TextBox x:Name="serverPort" Text="8090" Width="100"></TextBox>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" >
             <Button x:Name="StartServer" Content="Start" Click="StartServer_Click"></Button>
             <Label x:Name="serverSatus" Content="OFF" Foreground="#FFFF0000" ></Label>
-            <Button x:Name="StopServer" Content="Stop" Click="StopServer_Click" IsEnabled="False"></Button>
+            <Button x:Name="StopServer" Content="Stop" Click="StopServer_Click" IsEnabled="False" ></Button>
         </StackPanel>
         <TextBlock x:Name="serverLogs" Text="Server Logs:&#10;" TextWrapping="Wrap"></TextBlock>
     </StackPanel>
