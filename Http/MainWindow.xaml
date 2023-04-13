@@ -24,23 +24,23 @@
         <StackPanel Orientation="Vertical" Grid.Column="0">
             <Label FontWeight="SemiBold" >Запросы</Label>
             <StackPanel Orientation="Horizontal" >
-                <TextBox x:Name="url1TextBox">https://itstep.org/</TextBox>
+                <TextBox x:Name="url1TextBox" Width="200">https://itstep.org/</TextBox>
                 <Button x:Name="get1Button" Click="get1Button_Click" >GET</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="url2TextBox">https://itstep.org/</TextBox>
+                <TextBox x:Name="url2TextBox" Width="200">https://itstep.org/</TextBox>
                 <Button x:Name="get2Button" Click="get2Button_Click" >GET ful</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="url3TextBox">https://itstep.org/</TextBox>
+                <TextBox x:Name="url3TextBox" Width="200">https://itstep.org/</TextBox>
                 <Button x:Name="head3Button" Click="head3Button_Click" >HEAD</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="url4TextBox">https://itstep.org/</TextBox>
+                <TextBox x:Name="url4TextBox" Width="200">https://itstep.org/</TextBox>
                 <Button x:Name="options4Button" Click="options4Button_Click" >OPTONS</Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal" >
-                <TextBox x:Name="url5TextBox">https://www.random.org/passwords/?num=5&amp;len=8&amp;format=html&amp;rnd=new</TextBox>
+                <TextBox x:Name="url5TextBox" Width="200">https://www.random.org/passwords/?num=5&amp;len=8&amp;format=html&amp;rnd=new</TextBox>
                 <Button x:Name="get5Button" Click="get5Button_Click" >GET</Button>
             </StackPanel>
         </StackPanel>
