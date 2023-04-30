@@ -13,5 +13,6 @@
         <Button x:Name="httpRequests" Click="httpRequests_Click">Запросы http</Button>
         <Button x:Name="apiRequests" Click="apiRequests_Click">Запросы API</Button>
         <Button x:Name="SMTP" Click="SMTP_Click">ПОЧТА</Button>
+        <Button x:Name="ApiCoincap" Content="5. Запросы API - 2" Click="ApiCoincap_Click"/>
     </StackPanel >
 </Window>
