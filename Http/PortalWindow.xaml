@@ -1,0 +1,17 @@
+﻿<Window x:Class="Http.PortalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Http"
+        mc:Ignorable="d"
+        Title="PortalWindow" Height="450" Width="300">
+    <StackPanel Orientation="Vertical">
+        <Label FontSize="20" FontWeight="SemiBold"> Стетвое програмирование</Label>
+        <Button x:Name="ChatServer" Click="ChatServer_Click" >Сервер чата</Button>
+        <Button x:Name="ChatCLient" Click="ChatCLient_Click">Клиент чата</Button>
+        <Button x:Name="httpRequests" Click="httpRequests_Click">Запросы http</Button>
+        <Button x:Name="apiRequests" Click="apiRequests_Click">Запросы API</Button>
+        <Button x:Name="SMTP" Click="SMTP_Click">ПОЧТА</Button>
+    </StackPanel >
+</Window>

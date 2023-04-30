@@ -1,0 +1,34 @@
+﻿<Window x:Class="Http.SMTPWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Http"
+        mc:Ignorable="d"
+        Title="SMTPWindow" Height="450" Width="300"
+        Loaded="Window_Loaded"
+        >
+    <StackPanel>
+        <Button x:Name="SendTestButton" Click="SendTestButton_Click">Test Message</Button>
+        <Button x:Name="SendHtmlButton" Click="SendHtmlButton_Click">HTML Message</Button>
+        <Border BorderBrush="Khaki" BorderThickness="1">
+            <StackPanel Orientation="Vertical">
+
+                <DockPanel>
+                    <Label>Name:</Label>
+                    <TextBox x:Name="UserNameTextBox">Alex</TextBox>
+                </DockPanel>
+                <DockPanel>
+                    <Label>Email:</Label>
+                    <TextBox x:Name="UserEmailTextBox">timaropw@gmail.com</TextBox>
+                </DockPanel>
+                <Button x:Name="RegisterButton" Click="RegisterButton_Click">Register</Button>
+                <DockPanel  x:Name="ConfirmDockPanel" Visibility="Hidden" >
+                    <Label>Code From Email:</Label>
+                    <Button DockPanel.Dock="Right" x:Name="ConfirmButton" Click="ConfirmButton_Click">Register</Button>
+                    <TextBox x:Name="ConfirmTextBox"></TextBox>
+                </DockPanel>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Window>
