@@ -4,5 +4,5 @@
 After clone rename ```emailconfig.example.json``` to ```emailconfig.json``` and change credentials for smtp
 
 
-![name](./Screenshot/Screenshot_5.png)
+![name](./Screenshot/Screenshot_6.png)
 
