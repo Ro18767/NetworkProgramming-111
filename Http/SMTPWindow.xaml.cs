@@ -71,6 +71,7 @@ namespace Http
                 MessageBox.Show($"Ошибка обработки шаблона: {ex.Message}");
                 this.Close();
             }
+
             NpUser? user = dataContext.NpUsers.FirstOrDefault(u => u.Name == UserNameTextBox.Text && u.Email == UserEmailTextBox.Text);
             
             if (user is null)
