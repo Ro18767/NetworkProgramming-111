@@ -80,8 +80,14 @@ namespace Http
             }
             else
             {
+
+                if (user.Code is null)
+                {
+                    MessageBox.Show("already confirmed");
+                    return;
+                }
                 ConfirmDockPanel.Visibility = Visibility.Visible;
-                RegisterButton.IsEnabled = false;
+                RegisterButton.Content = "Resend Code";
             }
             
             
@@ -114,11 +120,11 @@ namespace Http
                 subject: "Test message",
                 body: "Test message smtpWindow"
                 );
-                MessageBox.Show("Send OK");
+                ConfirmDockPanel.Visibility = Visibility.Visible;
+                RegisterButton.Content = "Resend Code";
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show($"Send Err: {ex.Message}");
             }
         }
@@ -185,8 +191,10 @@ namespace Http
                 EnableSsl = ssl,
                 Credentials = new NetworkCredential(mailbox, password),
             };
+            
+                //01234566789QWERTYUPASDFGHJKXCVBNM IOLZ
 
-            String confirmCode = $"{random.Next(0, 10)}{random.Next(0, 10)}{random.Next(0, 10)}{random.Next(0, 10)}{random.Next(0, 10)}{random.Next(0, 10)}";
+            String confirmCode = RandomString(6);
 
             var emailMessage = emailTemplate
                 .Replace("%name%", UserNameTextBox.Text)
@@ -197,24 +205,66 @@ namespace Http
                 From = new MailAddress(mailbox),
                 Body = emailMessage,
                 IsBodyHtml = true,
-                Subject = "Code For Confirm"
+                Subject = "Code For Confirm",
             };
             mailMessage.To.Add(new MailAddress(UserEmailTextBox.Text));
             smtpClient.Send(mailMessage);
-            dataContext.NpUsers.Add(new()
+            var result = dataContext.NpUsers.SingleOrDefault(u => u.Name == UserNameTextBox.Text && u.Email == UserEmailTextBox.Text);
+            if (result is null)
             {
-                Id = Guid.NewGuid(),
-                Name = UserNameTextBox.Text,
-                Email = UserEmailTextBox.Text,
-                Code = confirmCode,
-            });
+                result = new()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = UserNameTextBox.Text,
+                    Email = UserEmailTextBox.Text,
+                    Code = confirmCode,
+                };
+                dataContext.NpUsers.Add(result);
+            }
+            else if (result.Code is null)
+            {
+                ConfirmDockPanel.Visibility = Visibility.Collapsed;
+                MessageBox.Show("already confirmed");
+                return;
+            }
+            else
+            {
+                result.Code = confirmCode;
+            }
+
             dataContext.SaveChanges();
             ConfirmDockPanel.Visibility = Visibility.Visible;
+            RegisterButton.Content = "Resend Code";
+        }
+
+        
+        private string RandomString(int length)
+        {
+            const string dictionary = "01234566789QWERTYUPASDFGHJKXCVBNM"; // excluded "IOLZ"
+
+            string result = "";
+            for (int i = 0; i < length; i++)
+			{
+                result += dictionary.Substring(random.Next(0, dictionary.Length), 1);
+			}
+            return result;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
+            var result = dataContext.NpUsers.SingleOrDefault(u => u.Name == UserNameTextBox.Text && u.Email == UserEmailTextBox.Text);
+            if (result is null) return;
+            if (result.Code is null)
+            { 
+                MessageBox.Show("already confirmed");
+                return;
+            }
+            if (result.Code != ConfirmTextBox.Text) return;
 
+            result.Code = null;
+            dataContext.SaveChanges();
+            ConfirmDockPanel.Visibility = Visibility.Collapsed;
+            MessageBox.Show("confirmed");
         }
     }
 }

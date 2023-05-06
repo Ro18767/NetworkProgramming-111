@@ -23,6 +23,7 @@ namespace Http.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
+            // MessageBox.Show(System.IO.File.ReadAllText("emailconfig.json"));
             var emailConfig = JsonSerializer.Deserialize<dynamic>(
                 System.IO.File.ReadAllText("emailconfig.json")
                 );

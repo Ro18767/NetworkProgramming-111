@@ -23,7 +23,7 @@
                     <TextBox x:Name="UserEmailTextBox">timaropw@gmail.com</TextBox>
                 </DockPanel>
                 <Button x:Name="RegisterButton" Click="RegisterButton_Click">Register</Button>
-                <DockPanel  x:Name="ConfirmDockPanel" Visibility="Hidden" >
+                <DockPanel  x:Name="ConfirmDockPanel" Visibility="Collapsed" >
                     <Label>Code From Email:</Label>
                     <Button DockPanel.Dock="Right" x:Name="ConfirmButton" Click="ConfirmButton_Click">Register</Button>
                     <TextBox x:Name="ConfirmTextBox"></TextBox>
